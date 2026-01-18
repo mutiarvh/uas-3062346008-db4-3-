@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Formulir Pendaftaran</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 0; min-height: 100vh; display: grid; place-items: center; background: #f6f8fa; }
+    .wrap { width: min(860px, 94vw); background: #fff; border: 1px solid #e1e4e8; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,.06); overflow: hidden; }
+    .header { padding: 20px 24px; background: #0969da; color: #fff; font-weight: 600; font-size: 18px; }
+    form { padding: 24px; color: #24292f; }
+    .field { display: grid; grid-template-columns: 1fr; gap: 6px; margin-bottom: 14px; }
+    .label { font-weight: 700; }
+    input[type="text"], input[type="email"], input[type="date"], textarea, select { padding: 10px 12px; border-radius: 8px; border: 1px solid #d0d7de; background: #fff; font-size: 14px; }
+    textarea { min-height: 100px; resize: vertical; }
+    .row { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    .grid2 { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    @media (min-width: 700px) { .row { grid-template-columns: repeat(2, 1fr); } .grid2 { grid-template-columns: repeat(2, 1fr); } }
+    .section { margin: 18px 0 8px; font-weight: 800; }
+    .note { margin-top: 8px; font-size: 13px; color: #57606a; }
+    .actions { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+    button { padding: 10px 14px; border-radius: 8px; border: 1px solid #0969da; background: #0969da; color: #fff; font-weight: 700; cursor: pointer; }
+    .ghost { background: #f6f8fa; color: #24292f; border-color: #d0d7de; }
+    .success { margin-top: 14px; padding: 10px 12px; border-radius: 8px; border: 1px solid #2da44e; background: #d1f2e8; color: #034d1f; display: none; }
+    .error { margin-top: 14px; padding: 10px 12px; border-radius: 8px; border: 1px solid #f85149; background: #ffe1e1; color: #6f1d1d; display: none; }
+    footer { padding: 14px 24px; border-top: 1px solid #e1e4e8; background: #fafbfc; font-size: 13px; color: #57606a; text-align: center; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="header">Formulir Pendaftaran</div>
+    <form id="form">
+      <div class="field"><label class="label">Nama Lengkap</label><input type="text" name="nama_lengkap" required></div>
+      <div class="field"><label class="label">Nama Panggilan</label><input type="text" name="nama_panggilan"></div>
+      <div class="section">Tempat/Tanggal Lahir</div>
+      <div class="row">
+        <div class="field"><label class="label">Tempat Lahir</label><input type="text" name="tempat_lahir"></div>
+        <div class="field"><label class="label">Tanggal Lahir</label><input type="date" name="tanggal_lahir"></div>
+      </div>
+      <div class="section">Alamat Asal</div>
+      <div class="grid2">
+        <div class="field"><label class="label">Alamat</label><input type="text" name="alamat_asal"></div>
+        <div class="field"><label class="label">Tlp/Hp</label><input type="text" name="alamat_asal_phone"></div>
+      </div>
+      <div class="section">Alamat di Malang</div>
+      <div class="grid2">
+        <div class="field"><label class="label">Alamat</label><input type="text" name="alamat_di_malang"></div>
+        <div class="field"><label class="label">Tlp/Hp</label><input type="text" name="alamat_di_malang_phone"></div>
+      </div>
+      <div class="field"><label class="label">Email</label><input type="email" name="email" required></div>
+      <div class="field"><label class="label">Motivasi</label><textarea name="motivasi"></textarea></div>
+      <div class="field"><label class="label">Pengalaman Berorganisasi</label><textarea name="pengalaman_berorganisasi"></textarea></div>
+      <div class="field"><label class="label">Pengalaman Kepanitiaan</label><textarea name="pengalaman_kepanitiaan"></textarea></div>
+      <div class="section">Divisi Yang Diinginkan</div>
+      <div class="grid2">
+        <div class="field"><label class="label">Divisi 1</label>
+          <select name="divisi_1">
+            <option value="">Pilih</option>
+            <option>Humas</option>
+            <option>Acara</option>
+            <option>Perlengkapan</option>
+            <option>Publikasi</option>
+            <option>Konsumsi</option>
+          </select>
+        </div>
+        <div class="field"><label class="label">Divisi 2</label>
+          <select name="divisi_2">
+            <option value="">Pilih</option>
+            <option>Humas</option>
+            <option>Acara</option>
+            <option>Perlengkapan</option>
+            <option>Publikasi</option>
+            <option>Konsumsi</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label class="label">Foto</label><input type="file" name="foto" accept="image/*"></div>
+      <div class="note">Pengiriman menggunakan layanan pihak ketiga. Ganti alamat email tujuan di bagian konfigurasi.</div>
+      <div class="actions">
+        <button type="submit">Kirim</button>
+        <button type="button" class="ghost" id="download">Unduh Data (JSON)</button>
+      </div>
+      <div id="success" class="success">Berhasil dikirim.</div>
+      <div id="error" class="error">Gagal mengirim. Data disimpan lokal.</div>
+    </form>
+    <footer>© 2026 — Formulir Pendaftaran</footer>
+  </main>
+  <script>
+    const SUBMIT_EMAIL = "revalinahulwahm@gmail.com";
+    const form = document.getElementById("form");
+    const success = document.getElementById("success");
+    const error = document.getElementById("error");
+    const downloadBtn = document.getElementById("download");
+    function formToJSON(f) {
+      const data = new FormData(f);
+      const json = {};
+      for (const [k, v] of data.entries()) { if (v instanceof File) continue; json[k] = v; }
+      return json;
+    }
+    async function submitViaFormSubmit(json) {
+      const url = "https://formsubmit.co/ajax/" + encodeURIComponent(SUBMIT_EMAIL);
+      const res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(json) });
+      if (!res.ok) throw new Error("failed");
+      const r = await res.json();
+      if (!r.success) throw new Error("failed");
+    }
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      success.style.display = "none";
+      error.style.display = "none";
+      const json = formToJSON(form);
+      try {
+        if (!SUBMIT_EMAIL || SUBMIT_EMAIL.includes("@email.com")) throw new Error("no-endpoint");
+        await submitViaFormSubmit(json);
+        success.style.display = "block";
+        localStorage.setItem("pendaftaran_last", JSON.stringify(json));
+      } catch (_) {
+        error.style.display = "block";
+        localStorage.setItem("pendaftaran_failed", JSON.stringify(json));
+      }
+    });
+    downloadBtn.addEventListener("click", () => {
+      const json = formToJSON(form);
+      const blob = new Blob([JSON.stringify(json, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "pendaftaran.json";
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+  </script>
+</body>
+</html>
