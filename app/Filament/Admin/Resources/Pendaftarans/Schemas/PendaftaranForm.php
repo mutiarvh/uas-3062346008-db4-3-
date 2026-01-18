@@ -75,7 +75,7 @@ class PendaftaranForm
                                     ->default(null),
                             ])
                             ->columns(1),
-                        Section::make('Koordinat Lokasi (Opsional)')
+                        Section::make('Koordinat Lokasi')
                             ->schema([
                                 TextInput::make('latitude')
                                     ->label('Latitude')
